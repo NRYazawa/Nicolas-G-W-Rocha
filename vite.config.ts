@@ -17,8 +17,8 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
-  // ADICIONE ESTA LINHA COM O NOME DO SEU REPOSITÓRIO:
-  base: '/NOME-DO-SEU-REPOSITORIO/', 
+  // ADICIONE ESTA LINHA:
+  base: '/Nicolas-G-W-Rocha/', 
   
   plugins: [
     figmaAssetResolver(),

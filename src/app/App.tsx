@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { HashRouter, Routes, Route } from "react-router";
 import { ArrowUpRight, Mail, Github } from "lucide-react";
 import { Link } from "react-router";
 import Nav from "./components/Nav";
@@ -343,12 +343,12 @@ export default function App() {
     <>
       <style>{sharedStyles}</style>
       <div className="min-h-screen bg-background text-foreground">
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<HomePage dark={dark} onToggle={toggle} />} />
             <Route path="/projects" element={<ProjectsPage dark={dark} onToggle={toggle} />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     </>
   );
