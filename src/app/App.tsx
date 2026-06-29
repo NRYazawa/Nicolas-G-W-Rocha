@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { HashRouter, Routes, Route } from "react-router";
-import { ArrowUpRight, Mail, Github } from "lucide-react";
-import { Link } from "react-router";
+import { HashRouter, Routes, Route, Link } from "react-router";
+import { ArrowUpRight, Mail, Instagram, Youtube, MessageSquare, Image as ImageIcon } from "lucide-react";
 import Nav from "./components/Nav";
 import ProjectModal from "./components/ProjectModal";
 import ProjectsPage from "./ProjectsPage";
@@ -74,33 +73,38 @@ const sharedStyles = `
 `;
 
 const skills = [
-  "C#", "TypeScript", "Dart", "Python", "GDScript",
-  "Unity", "Godot", "Flutter", "React Native",
-  "React", "Node.js", "PostgreSQL", "Firebase", "Docker", "Git",
+  "C++", "C#", "Blueprints", "TypeScript",
+  "Unreal Engine 5", "Unity", "Python",
+  "React", "Node.js", "Docker", "Git", "Game Design"
 ];
 
 const about = [
-  { label: "Desenvolvimento de Jogos", desc: "Unity · Godot · C# · Game Design" },
-  { label: "Apps Mobile", desc: "Flutter · React Native · iOS · Android" },
-  { label: "Web & Backend", desc: "React · Node.js · TypeScript · REST APIs" },
-  { label: "Arquitetura & Infra", desc: "PostgreSQL · Firebase · Docker · CI/CD" },
+  { label: { pt: "Desenvolvimento de Jogos", en: "Game Development" }, desc: "Unreal Engine 5 · Unity · C++ · Blueprints · Game Design" },
+  { label: { pt: "Sistemas & Ferramentas", en: "Systems & Tools" }, desc: "C# · Python · Arquitetura Multiplayer" },
+  { label: { pt: "Hardware & Robótica", en: "Hardware & Robotics" }, desc: "Arduino · Controles Customizados · Prototipagem" },
+  { label: { pt: "Narrativa & Escrita", en: "Narrative & Writing" }, desc: "Roteiros · Lore · Terror Psicológico · GDD" },
 ];
 
 /* ─── Home page ─────────────────────────────────────────────── */
-function HomePage({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
+type HomeProps = {
+  dark: boolean;
+  onToggle: () => void;
+  lang: "pt" | "en";
+  setLang: (lang: "pt" | "en") => void;
+};
+
+function HomePage({ dark, onToggle, lang, setLang }: HomeProps) {
   const [selected, setSelected] = useState<Project | null>(null);
+  const t = (pt: string, en: string) => (lang === "pt" ? pt : en);
 
   return (
     <>
-      <Nav dark={dark} onToggle={onToggle} />
-      <ProjectModal project={selected} dark={dark} onClose={() => setSelected(null)} />
+      <Nav dark={dark} onToggle={onToggle} lang={lang} setLang={setLang} />
+      <ProjectModal project={selected} dark={dark} lang={lang} onClose={() => setSelected(null)} />
 
       <main>
         {/* Hero */}
-        <section
-          id="hero"
-          className="relative min-h-screen flex flex-col justify-center pt-14 px-6 dot-grid overflow-hidden"
-        >
+        <section id="hero" className="relative min-h-screen flex flex-col justify-center pt-14 px-6 dot-grid overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/50 to-background pointer-events-none" />
           <div
             className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none"
@@ -113,63 +117,52 @@ function HomePage({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
               style={{ background: "var(--card)" }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-              disponível para novos projetos
+              {t("disponível para novos projetos", "available for new projects")}
             </div>
 
             <h1 className="font-display font-extrabold leading-[0.88] tracking-tight mb-8">
-              <span
-                className="block text-foreground hero-name"
-                style={{ fontSize: "clamp(3.2rem, 9vw, 7.5rem)" }}
-              >
-                Desenvolvedor
+              <span className="block text-foreground hero-name" style={{ fontSize: "clamp(3.2rem, 9vw, 7.5rem)" }}>
+                {t("Nicolas G W ", "Rocha")}
               </span>
-              <span
-                className="block hero-name"
-                style={{ fontSize: "clamp(3.2rem, 9vw, 7.5rem)", color: "var(--accent)" }}
-              >
-                de Software.
+              <span className="block hero-name" style={{ fontSize: "clamp(3.2rem, 9vw, 7.5rem)", color: "var(--accent)" }}>
+                {t("Rocha", "Nicolas G W ")}
               </span>
             </h1>
 
             <p className="text-muted-foreground max-w-xl text-lg leading-relaxed mb-12">
-              Construo <strong className="text-foreground font-semibold">jogos</strong> e{" "}
-              <strong className="text-foreground font-semibold">aplicativos</strong> do zero —
-              da arquitetura ao detalhe final. Apaixonado por experiências interativas e código limpo.
+              {t(
+                "Construo jogos e aplicações do zero — da arquitetura de sistemas ao design de narrativa. Apaixonado por experiências interativas, terror psicológico e código limpo.",
+                "I build games and applications from scratch — from system architecture to narrative design. Passionate about interactive experiences, psychological horror, and clean code."
+              )}
             </p>
 
             <div className="flex items-center gap-3 flex-wrap">
               <a
                 href="#projetos"
+                onClick={(e) => { e.preventDefault(); document.getElementById('projetos')?.scrollIntoView({ behavior: 'smooth' }); }}
                 className="cta-primary inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold font-display"
                 style={{ background: "var(--accent)", color: "var(--accent-foreground)" }}
               >
-                Ver projetos <ArrowUpRight size={14} />
+                {t("Ver projetos", "View projects")} <ArrowUpRight size={14} />
               </a>
               <a
                 href="#contato"
+                onClick={(e) => { e.preventDefault(); document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' }); }}
                 className="cta-secondary inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium border border-border text-muted-foreground"
               >
-                Entrar em contato
+                {t("Entrar em contato", "Get in touch")}
               </a>
             </div>
-          </div>
-
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground">
-            <div className="w-px h-10 bg-gradient-to-b from-border to-transparent" />
-            <span className="font-mono-c text-[10px] tracking-widest uppercase opacity-60">scroll</span>
           </div>
         </section>
 
         {/* Stack */}
         <section className="py-16 px-6 border-t border-border">
           <div className="max-w-5xl mx-auto">
-            <p className="font-mono-c text-xs mb-6 text-accent-var">tecnologias</p>
+            <p className="font-mono-c text-xs mb-6 text-accent-var">{t("Habilidades", "Skills")}</p>
             <div className="flex flex-wrap gap-2">
               {skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="skill-pill font-mono-c text-xs px-3 py-1.5 rounded-full border border-border text-muted-foreground cursor-default"
-                >
+                <span key={skill} className="skill-pill font-mono-c text-xs px-3 py-1.5 rounded-full border border-border text-muted-foreground cursor-default">
                   {skill}
                 </span>
               ))}
@@ -182,26 +175,35 @@ function HomePage({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
           <div className="max-w-5xl mx-auto">
             <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
               <div>
-                <p className="font-mono-c text-xs mb-3 text-accent-var">projetos selecionados</p>
-                <h2 className="font-display font-bold text-4xl">O que construí</h2>
+                <p className="font-mono-c text-xs mb-3 text-accent-var">{t("Projetos em Destaque", "Featured Projects")}</p>
+                <h2 className="font-display font-bold text-4xl">{t("Criados por Mim", "What I've built")}</h2>
               </div>
               <Link
                 to="/projects"
                 className="cta-secondary inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm border border-border text-muted-foreground font-mono-c"
               >
-                ver todos os projetos →
+                {t("ver todos os projetos →", "view all projects →")}
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {featuredProjects.map((project) => {
                 const accentColor = `oklch(${dark ? "0.68" : "0.55"} 0.22 ${project.hue})`;
                 return (
                   <div
                     key={project.id}
                     onClick={() => setSelected(project)}
-                    className="project-card bg-card border border-border rounded-2xl p-6 group cursor-pointer"
+                    className="project-card flex flex-col bg-card border border-border rounded-2xl p-5 group cursor-pointer overflow-hidden"
                   >
+                    {/* Imagem de Capa */}
+                    <div className="w-full aspect-video mb-4 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border shrink-0">
+                      {project.imageUrl ? (
+                        <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      ) : (
+                        <ImageIcon className="text-muted-foreground opacity-30" size={32} />
+                      )}
+                    </div>
+
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <span className="font-mono-c text-[11px] text-muted-foreground">{project.year}</span>
@@ -219,24 +221,26 @@ function HomePage({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
                           </span>
                         </div>
                       </div>
-                      <span className="font-mono-c text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-150 mt-1">
-                        ver detalhes →
-                      </span>
                     </div>
 
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-                      {project.shortDesc}
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-5 flex-grow">
+                      {project.shortDesc[lang]}
                     </p>
 
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="font-mono-c text-[11px] px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50">
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.stack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="font-mono-c text-[11px] px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <span className="font-mono-c text-[10px] text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                        {t("ver detalhes →", "view details →")}
+                      </span>
                     </div>
                   </div>
                 );
@@ -249,30 +253,34 @@ function HomePage({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
         <section id="sobre" className="py-20 px-6 border-t border-border">
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 items-start">
             <div>
-              <p className="font-mono-c text-xs mb-3 text-accent-var">sobre mim</p>
+              <p className="font-mono-c text-xs mb-3 text-accent-var">{t("Sobre Mim", "About Me")}</p>
               <h2 className="font-display font-bold text-4xl leading-tight mb-6">
-                Código é minha<br />linguagem nativa.
+                {lang === "pt" ? (
+                  <>Código é minha<br />linguagem nativa.</>
+                ) : (
+                  <>Code is my<br />native language.</>
+                )}
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-5">
-                Sou desenvolvedor apaixonado por criar experiências digitais que funcionam — e que
-                encantam. Trabalho no espectro completo: da lógica de backend ao polimento de UI,
-                passando pela física de jogos.
+                {t(
+                  "Sou um desenvolvedor apaixonado por criar experiências digitais densas e imersivas. Trabalho no espectro completo: da lógica complexa em C++ e Unreal Engine à estruturação de mundos e narrativas.",
+                  "I am a developer passionate about creating dense and immersive digital experiences. I work across the full spectrum: from complex logic in C++ and Unreal Engine to world-building and narrative structuring."
+                )}
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Quando não estou programando, estou jogando, estudando engine internals ou
-                contribuindo com projetos open source.
+                {t(
+                  "Quando não estou a programar, estou a escrever histórias, a fotografar ou a criar hardware experimental com Arduino.",
+                  "When I'm not coding, I'm writing stories, taking photographs, or building experimental hardware with Arduino."
+                )}
               </p>
             </div>
 
             <div className="space-y-3 pt-1">
-              {about.map((item) => (
-                <div
-                  key={item.label}
-                  className="about-row flex items-center gap-4 p-4 rounded-xl border border-border cursor-default"
-                >
+              {about.map((item, index) => (
+                <div key={index} className="about-row flex items-center gap-4 p-4 rounded-xl border border-border cursor-default">
                   <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
                   <div>
-                    <p className="font-display font-semibold text-sm">{item.label}</p>
+                    <p className="font-display font-semibold text-sm">{item.label[lang]}</p>
                     <p className="font-mono-c text-xs text-muted-foreground mt-0.5">{item.desc}</p>
                   </div>
                 </div>
@@ -283,39 +291,49 @@ function HomePage({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
 
         {/* Contact */}
         <section id="contato" className="py-24 px-6 border-t border-border">
-          <div className="max-w-5xl mx-auto text-center">
-            <p className="font-mono-c text-xs mb-5 text-accent-var">contato</p>
-            <h2
-              className="font-display font-bold leading-tight mb-5"
-              style={{ fontSize: "clamp(2rem, 5vw, 3.75rem)" }}
-            >
-              Vamos construir<br />algo juntos?
+          <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
+            <p className="font-mono-c text-xs mb-5 text-accent-var">{t("Contato", "Contact")}</p>
+            <h2 className="font-display font-bold leading-tight mb-5" style={{ fontSize: "clamp(2rem, 5vw, 3.75rem)" }}>
+              {lang === "pt" ? (
+                <>Vamos construir<br />algo juntos?</>
+              ) : (
+                <>Let's build<br />something together?</>
+              )}
             </h2>
-            <p className="text-muted-foreground mb-10 max-w-sm mx-auto leading-relaxed">
-              Aberto a projetos freelance, colaborações e novas oportunidades.
+            <p className="text-muted-foreground mb-8 max-w-sm mx-auto leading-relaxed">
+              {t(
+                "Aberto a projetos freelance, colaborações criativas e novas oportunidades no desenvolvimento de jogos e software.",
+                "Open to freelance projects, creative collaborations, and new opportunities in game and software development."
+              )}
             </p>
-            <a
-              href="mailto:dev@example.com"
-              className="cta-secondary inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-medium border border-border text-muted-foreground"
-            >
+            
+            <a href="mailto:dev@example.com" className="cta-secondary inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-medium border border-border text-muted-foreground mb-8">
               <Mail size={15} />
               dev@example.com
             </a>
+
+            {/* Redes Sociais Alternativas */}
+            <div className="flex items-center gap-8 border-t border-border pt-8">
+              <a href="https://discordapp.com/users/722147308422299739" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors">
+                <MessageSquare size={18} />
+                Discord
+              </a>
+              <a href="https://instagram.com/" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors">
+                <Instagram size={18} />
+                Instagram
+              </a>
+              <a href="https://www.youtube.com/@NRYazawa" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors">
+                <Youtube size={18} />
+                YouTube
+              </a>
+            </div>
           </div>
         </section>
       </main>
 
       <footer className="border-t border-border py-8 px-6">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <span className="font-mono-c text-xs text-muted-foreground">© 2025 · feito com código</span>
-          <div className="flex items-center gap-4">
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors duration-150">
-              <Github size={16} />
-            </a>
-            <a href="mailto:dev@example.com" className="text-muted-foreground hover:text-foreground transition-colors duration-150">
-              <Mail size={16} />
-            </a>
-          </div>
+        <div className="max-w-5xl mx-auto flex items-center justify-center">
+          <span className="font-mono-c text-xs text-muted-foreground">© 2026 · {t("Nicolas G W Rocha", "Nicolas G W Rocha")}</span>
         </div>
       </footer>
     </>
@@ -329,12 +347,10 @@ export default function App() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Detecção Inteligente de Tema
     const storedTheme = localStorage.getItem("portfolio-theme");
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     setDark(storedTheme ? storedTheme === "dark" : systemPrefersDark);
 
-    // Detecção Inteligente de Idioma
     const storedLang = localStorage.getItem("portfolio-lang") as "pt" | "en";
     const systemLang = navigator.language.toLowerCase().startsWith("pt") ? "pt" : "en";
     setLang(storedLang || systemLang);
@@ -352,7 +368,7 @@ export default function App() {
 
   const toggle = () => setDark((d) => !d);
 
-  if (!mounted) return null; // Evita piscar o tema errado no load
+  if (!mounted) return null;
 
   return (
     <>
@@ -366,7 +382,5 @@ export default function App() {
         </HashRouter>
       </div>
     </>
-  );
-}
   );
 }

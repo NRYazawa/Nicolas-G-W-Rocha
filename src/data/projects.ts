@@ -23,7 +23,7 @@ export const allProjects: Project[] = [
     status: { pt: "Em desenvolvimento", en: "In development" },
     year: "2026",
     featured: true,
-    imageUrl: "", // Adicione o link da imagem da vila aqui
+    imageUrl: "C:\\Users\\Nicolas\\Downloads\\Nicolas G W Rocha\\img\\SinnersHollow_Logo.png",
     youtubeId: "", // ID do trailer
     shortDesc: {
       pt: "Demo de terror psicológico ambientado em uma vila fictícia no Paraná.",
@@ -56,7 +56,7 @@ export const allProjects: Project[] = [
     status: { pt: "Em desenvolvimento", en: "In development" },
     year: "2026",
     featured: true,
-    imageUrl: "",
+    imageUrl: "C:\\Users\\Nicolas\\Downloads\\Nicolas G W Rocha\\img\\Blackheart_Logo.png",
     youtubeId: "",
     shortDesc: {
       pt: "Sucessor espiritual de InFamous com mecânicas de manipulação de energia biológica e sangue.",
@@ -89,7 +89,7 @@ export const allProjects: Project[] = [
     status: { pt: "Protótipo", en: "Prototype" },
     year: "2025",
     featured: true,
-    imageUrl: "",
+    imageUrl: "C:\\Users\\Nicolas\\Downloads\\Nicolas G W Rocha\\img\\PenetrasBonsDePapo_Logo.png",
     youtubeId: "",
     shortDesc: {
       pt: "Jogo social multiplayer cross-play inspirado na era nostálgica de Club Penguin.",
@@ -122,7 +122,7 @@ export const allProjects: Project[] = [
     status: { pt: "Concluído", en: "Completed" },
     year: "2026",
     featured: false,
-    imageUrl: "",
+    imageUrl: "C:\\Users\\Nicolas\\Downloads\\Nicolas G W Rocha\\img\\ElevatorDownToHell_Logo.png",
     youtubeId: "",
     shortDesc: {
       pt: "Recriação digital de jogo de palavras utilizando Unity e um dicionário customizado.",
@@ -155,8 +155,8 @@ export const allProjects: Project[] = [
     status: { pt: "Em desenvolvimento", en: "In development" },
     year: "2026",
     featured: true,
-    imageUrl: "",
-    youtubeId: "",
+    imageUrl: "C:\\Users\\Nicolas\\Downloads\\Nicolas G W Rocha\\img\\DigiAid_Logo.png",
+    youtubeId: "7P-vDVOljcQ",
     shortDesc: {
       pt: "Simulador de redes sociais criado para auxiliar no aprendizado tecnológico da terceira idade.",
       en: "Social media simulator created to help seniors learn technology."

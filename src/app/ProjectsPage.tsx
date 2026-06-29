@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Adicionado useEffect
 import { allProjects, type Project } from "../data/projects";
 import Nav from "./components/Nav";
 import ProjectModal from "./components/ProjectModal";
@@ -25,7 +25,12 @@ const catStyles: Record<string, { bg: string; text: string; border: string }> = 
 
 export default function ProjectsPage({ dark, onToggle, lang, setLang }: Props) {
   const [selected, setSelected] = useState<Project | null>(null);
-  const [filter, setFilter] = useState("Todos"); // ou "All"
+  const [filter, setFilter] = useState("Todos");
+
+  // NOVO: Scroll suave para o topo ao abrir a página
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   const t = (pt: string, en: string) => (lang === "pt" ? pt : en);
 
@@ -77,7 +82,7 @@ export default function ProjectsPage({ dark, onToggle, lang, setLang }: Props) {
                   className="project-card flex flex-col bg-card border border-border rounded-2xl p-5 group cursor-pointer overflow-hidden"
                 >
                   {/* Nova Imagem de Capa */}
-                  <div className="w-full h-40 mb-4 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border">
+                  <div className="w-full aspect-video mb-4 rounded-lg bg-muted flex items-center justify-center overflow-hidden border border-border shrink-0">
                     {project.imageUrl ? (
                       <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (

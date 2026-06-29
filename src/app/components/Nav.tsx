@@ -1,5 +1,5 @@
 import { Sun, Moon } from "lucide-react";
-import { Link, useLocation } from "react-router"; // Use react-router-dom se houver erro
+import { Link, useLocation } from "react-router";
 
 type NavProps = {
   dark: boolean;
@@ -24,14 +24,22 @@ export default function Nav({ dark, onToggle, lang, setLang }: NavProps) {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-lg border-b border-border">
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link to="/" className="font-mono-c text-sm text-muted-foreground tracking-tight hover:text-foreground transition-colors duration-150">
-          <span style={{ color: "var(--accent)" }}>~/</span>dev
+          <span style={{ color: "var(--accent)" }}>~/</span>NRY
         </Link>
 
         <div className="flex items-center gap-5">
           {isHome ? (
             <div className="hidden sm:flex items-center gap-7">
               {menuItems.map((item) => (
-                <a key={item.id} href={`#${item.id}`} className="nav-link font-mono-c text-xs text-muted-foreground hover:text-foreground capitalize tracking-wide">
+                <a 
+                  key={item.id} 
+                  href={`#${item.id}`} 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="nav-link font-mono-c text-xs text-muted-foreground hover:text-foreground capitalize tracking-wide"
+                >
                   {item.label}
                 </a>
               ))}
@@ -42,7 +50,6 @@ export default function Nav({ dark, onToggle, lang, setLang }: NavProps) {
             </Link>
           )}
 
-          {/* Seletor de Idioma */}
           <select 
             value={lang} 
             onChange={(e) => setLang(e.target.value as "pt" | "en")}
@@ -52,7 +59,6 @@ export default function Nav({ dark, onToggle, lang, setLang }: NavProps) {
             <option value="en">EN</option>
           </select>
 
-          {/* Botão de Tema */}
           <button
             onClick={onToggle}
             className="theme-btn w-8 h-8 flex items-center justify-center rounded-full border border-border text-muted-foreground ml-2"
