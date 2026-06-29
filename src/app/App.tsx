@@ -325,19 +325,34 @@ function HomePage({ dark, onToggle }: { dark: boolean; onToggle: () => void }) {
 /* ─── Root ───────────────────────────────────────────────────── */
 export default function App() {
   const [dark, setDark] = useState(false);
+  const [lang, setLang] = useState<"pt" | "en">("pt");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("portfolio-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setDark(stored ? stored === "dark" : prefersDark);
+    // Detecção Inteligente de Tema
+    const storedTheme = localStorage.getItem("portfolio-theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setDark(storedTheme ? storedTheme === "dark" : systemPrefersDark);
+
+    // Detecção Inteligente de Idioma
+    const storedLang = localStorage.getItem("portfolio-lang") as "pt" | "en";
+    const systemLang = navigator.language.toLowerCase().startsWith("pt") ? "pt" : "en";
+    setLang(storedLang || systemLang);
+    
+    setMounted(true);
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("portfolio-theme", dark ? "dark" : "light");
-  }, [dark]);
+    if (mounted) {
+      document.documentElement.classList.toggle("dark", dark);
+      localStorage.setItem("portfolio-theme", dark ? "dark" : "light");
+      localStorage.setItem("portfolio-lang", lang);
+    }
+  }, [dark, lang, mounted]);
 
   const toggle = () => setDark((d) => !d);
+
+  if (!mounted) return null; // Evita piscar o tema errado no load
 
   return (
     <>
@@ -345,11 +360,13 @@ export default function App() {
       <div className="min-h-screen bg-background text-foreground">
         <HashRouter>
           <Routes>
-            <Route path="/" element={<HomePage dark={dark} onToggle={toggle} />} />
-            <Route path="/projects" element={<ProjectsPage dark={dark} onToggle={toggle} />} />
+            <Route path="/" element={<HomePage dark={dark} onToggle={toggle} lang={lang} setLang={setLang} />} />
+            <Route path="/projects" element={<ProjectsPage dark={dark} onToggle={toggle} lang={lang} setLang={setLang} />} />
           </Routes>
         </HashRouter>
       </div>
     </>
+  );
+}
   );
 }

@@ -1,194 +1,186 @@
 export type Project = {
   id: string;
   title: string;
-  category: string;
-  status: "Concluído" | "Em desenvolvimento" | "Arquivado";
+  category: "Jogos" | "Apps"; // Padronizado
+  status: { pt: string; en: string };
   year: string;
   featured: boolean;
-  shortDesc: string;
-  fullDesc: string;
-  highlights: string[];
+  shortDesc: { pt: string; en: string };
+  fullDesc: { pt: string; en: string };
+  highlights: { pt: string[]; en: string[] };
   stack: string[];
   links: { github?: string; live?: string };
+  imageUrl?: string;   // Novo: Link da imagem
+  youtubeId?: string; // Novo: ID do video no Youtube (ex: "dQw4w9WgXcQ")
   hue: string;
 };
 
 export const allProjects: Project[] = [
   {
-    id: "vortex",
-    title: "Vortex",
-    category: "Jogo",
-    status: "Concluído",
-    year: "2024",
+    id: "sinners-valley",
+    title: "Sinner's Valley",
+    category: "Jogos",
+    status: { pt: "Em desenvolvimento", en: "In development" },
+    year: "2026",
     featured: true,
-    shortDesc:
-      "Jogo de ação indie em pixel art com sistema de combate baseado em habilidades. Desenvolvido solo do concept ao lançamento na Steam.",
-    fullDesc:
-      "Vortex é um action roguelite em pixel art onde cada run é única. O jogador escolhe habilidades ao subir de nível, combinando efeitos para criar builds poderosas. Desenvolvido inteiramente solo — do design de personagens à implementação de física e IA dos inimigos.",
-    highlights: [
-      "Sistema de habilidades com mais de 40 combinações únicas",
-      "IA de inimigos com comportamento por estados (FSM)",
-      "Geração procedural de salas e corredores",
-      "Suporte a controle e teclado com rebind de teclas",
-      "500+ downloads na primeira semana de lançamento",
-    ],
-    stack: ["Unity", "C#", "Aseprite", "FMOD"],
-    links: { github: "#", live: "#" },
-    hue: "289",
+    imageUrl: "", // Adicione o link da imagem da vila aqui
+    youtubeId: "", // ID do trailer
+    shortDesc: {
+      pt: "Demo de terror psicológico ambientado em uma vila fictícia no Paraná.",
+      en: "Psychological horror demo set in a fictional village in Paraná."
+    },
+    fullDesc: {
+      pt: "Sinner's Valley é um jogo de terror psicológico desenvolvido na Unreal Engine 5. O foco principal está na construção da narrativa e em uma lore profunda, explorando ambientes tensos, o grotesco e o desconhecido em uma vila isolada.",
+      en: "Sinner's Valley is a psychological horror game developed in Unreal Engine 5. The main focus is on narrative building and deep lore, exploring tense environments, the grotesque, and the unknown in an isolated village."
+    },
+    highlights: {
+      pt: [
+        "Desenvolvimento em Unreal Engine 5 (C++ e Blueprints)",
+        "Foco em terror psicológico e design de som imersivo",
+        "Construção de mundo original e lore densa"
+      ],
+      en: [
+        "Developed in Unreal Engine 5 (C++ and Blueprints)",
+        "Focus on psychological horror and immersive sound design",
+        "Original world-building and dense lore"
+      ]
+    },
+    stack: ["Unreal Engine 5", "C++", "Blueprints"],
+    links: { github: "#" },
+    hue: "20", // Carmesim
   },
   {
-    id: "fintrack",
-    title: "Fintrack",
-    category: "App",
-    status: "Concluído",
-    year: "2024",
+    id: "cytosis",
+    title: "Cytosis (Project Blood Vessel)",
+    category: "Jogos",
+    status: { pt: "Em desenvolvimento", en: "In development" },
+    year: "2026",
     featured: true,
-    shortDesc:
-      "Aplicativo de controle financeiro pessoal com gráficos de gastos, metas mensais e exportação de relatórios.",
-    fullDesc:
-      "Fintrack ajuda o usuário a ter clareza total sobre suas finanças. Com categorização automática de transações, dashboards visuais e alertas de gastos, o app transforma dados brutos em decisões conscientes. Backend em Firebase com sync em tempo real.",
-    highlights: [
-      "Categorização automática de transações por ML",
-      "Dashboards com gráficos interativos de gastos",
-      "Exportação de relatórios mensais em PDF",
-      "Alertas de orçamento personalizáveis",
-      "Sync em tempo real entre dispositivos via Firebase",
-    ],
-    stack: ["Flutter", "Dart", "Firebase", "Riverpod"],
-    links: { github: "#", live: "#" },
-    hue: "155",
+    imageUrl: "",
+    youtubeId: "",
+    shortDesc: {
+      pt: "Sucessor espiritual de InFamous com mecânicas de manipulação de energia biológica e sangue.",
+      en: "Spiritual successor to InFamous featuring biological energy and blood manipulation mechanics."
+    },
+    fullDesc: {
+      pt: "Um jogo de ação onde um detetive canadense utiliza habilidades de manipulação de energia biológica e sangue para resolver casos e combater inimigos. O projeto conta com um Game Design Document (GDD) completo e uma vertical slice detalhada.",
+      en: "An action game where a Canadian detective uses biological energy and blood manipulation skills to solve cases and fight enemies. The project features a complete Game Design Document (GDD) and a detailed vertical slice."
+    },
+    highlights: {
+      pt: [
+        "Mecânicas complexas de manipulação de sangue e energia biológica",
+        "Documentação de design completa (GDD)",
+        "Desenvolvimento de Vertical Slice de alta fidelidade"
+      ],
+      en: [
+        "Complex blood and biological energy manipulation mechanics",
+        "Comprehensive design documentation (GDD)",
+        "High-fidelity Vertical Slice development"
+      ]
+    },
+    stack: ["Unreal Engine 5", "Game Design"],
+    links: { github: "#" },
+    hue: "350",
   },
   {
-    id: "nexus",
-    title: "Nexus",
-    category: "Plataforma",
-    status: "Em desenvolvimento",
-    year: "2023",
+    id: "foxy-foxes",
+    title: "Foxy Foxes",
+    category: "Jogos",
+    status: { pt: "Protótipo", en: "Prototype" },
+    year: "2025",
     featured: true,
-    shortDesc:
-      "Plataforma de matchmaking para desenvolvedores independentes. Conecta game devs com artistas e músicos.",
-    fullDesc:
-      "Nexus resolve um problema real: encontrar colaboradores qualificados para projetos indie é difícil. A plataforma permite que devs criem perfis, publiquem projetos abertos e encontrem parceiros por habilidade, disponibilidade e estilo.",
-    highlights: [
-      "Sistema de matching baseado em habilidades e disponibilidade",
-      "Portfólio integrado com projetos e contribuições",
-      "Chat em tempo real entre colaboradores",
-      "Feed de projetos com filtros avançados",
-      "API REST documentada com Swagger",
-    ],
-    stack: ["React", "Node.js", "PostgreSQL", "Socket.io", "TypeScript"],
+    imageUrl: "",
+    youtubeId: "",
+    shortDesc: {
+      pt: "Jogo social multiplayer cross-play inspirado na era nostálgica de Club Penguin.",
+      en: "Cross-play multiplayer social game inspired by the nostalgic era of Club Penguin."
+    },
+    fullDesc: {
+      pt: "Um projeto focado em interação social comunitária com suporte nativo a cross-play entre Android e Steam. O desenvolvimento foi estruturado em um ciclo de 6 meses, com ênfase máxima na arquitetura de servidores e replicação multiplayer.",
+      en: "A community-driven social interaction project with native cross-play support between Android and Steam. Development was structured in a 6-month cycle, with maximum emphasis on server architecture and multiplayer replication."
+    },
+    highlights: {
+      pt: [
+        "Cross-play nativo funcional entre mobile (Android) e PC (Steam)",
+        "Arquitetura de rede otimizada para sincronização multiplayer",
+        "Ciclo de desenvolvimento ágil de 6 meses planejado"
+      ],
+      en: [
+        "Functional native cross-play between mobile (Android) and PC (Steam)",
+        "Optimized network architecture for multiplayer synchronization",
+        "Planned 6-month agile development cycle"
+      ]
+    },
+    stack: ["Unity", "C#", "Multiplayer Server"],
     links: { github: "#" },
-    hue: "25",
+    hue: "30",
   },
   {
-    id: "capsule",
-    title: "Capsule",
-    category: "App",
-    status: "Concluído",
-    year: "2023",
+    id: "termo-unity",
+    title: "Termo",
+    category: "Jogos",
+    status: { pt: "Concluído", en: "Completed" },
+    year: "2026",
+    featured: false,
+    imageUrl: "",
+    youtubeId: "",
+    shortDesc: {
+      pt: "Recriação digital de jogo de palavras utilizando Unity e um dicionário customizado.",
+      en: "Digital recreation of a word game using Unity and a custom dictionary."
+    },
+    fullDesc: {
+      pt: "Um jogo focado em adivinhar palavras com número limitado de tentativas. O desenvolvimento exigiu a preparação minuciosa e integração de um dataset de dicionário em português, além de sistemas de pontuação e placar de líderes (leaderboards).",
+      en: "A game focused on guessing words with a limited number of attempts. Development required the meticulous preparation and integration of a Portuguese dictionary dataset, as well as scoring and leaderboard systems."
+    },
+    highlights: {
+      pt: [
+        "Processamento e integração de base de dados de palavras customizada",
+        "Implementação de lógica de validação e sistema de Leaderboards",
+        "UI responsiva e feedback de cores intuitivo"
+      ],
+      en: [
+        "Custom word database processing and integration",
+        "Validation logic and Leaderboard system implementation",
+        "Responsive UI and intuitive color feedback"
+      ]
+    },
+    stack: ["Unity", "C#"],
+    links: { github: "#" },
+    hue: "140",
+  },
+  {
+    id: "alfabetizacao-digital",
+    title: "App de Alfabetização Digital",
+    category: "Apps",
+    status: { pt: "Em desenvolvimento", en: "In development" },
+    year: "2026",
     featured: true,
-    shortDesc:
-      "App de rastreamento de hábitos com streak visual, lembretes inteligentes e widgets nativos para iOS e Android.",
-    fullDesc:
-      "Capsule parte da premissa de que hábitos precisam de visibilidade para durar. O app exibe o progresso de forma visual e motivadora, com widgets na tela inicial do celular que lembram o usuário sem precisar abrir o app.",
-    highlights: [
-      "Widgets nativos para iOS (WidgetKit) e Android (Glance)",
-      "Lembretes inteligentes que aprendem os horários do usuário",
-      "Gráfico de calor estilo GitHub para visualizar consistência",
-      "Backup automático e exportação de dados em CSV",
-      "Tema claro/escuro com suporte ao Dynamic Island",
-    ],
-    stack: ["React Native", "TypeScript", "SQLite", "Expo"],
-    links: { github: "#", live: "#" },
-    hue: "200",
-  },
-  {
-    id: "pixelforge",
-    title: "PixelForge",
-    category: "Ferramenta",
-    status: "Concluído",
-    year: "2023",
-    featured: false,
-    shortDesc:
-      "Pipeline de automação para otimizar e exportar assets de pixel art em múltiplos formatos e resoluções.",
-    fullDesc:
-      "PixelForge nasceu da necessidade de automatizar um processo repetitivo: exportar sprites em várias resoluções para diferentes plataformas. A ferramenta lê diretórios de assets, aplica transformações configuráveis e gera spritesheet com metadados JSON.",
-    highlights: [
-      "Exportação em batch para até 6 resoluções simultaneamente",
-      "Geração automática de spritesheets com atlas JSON",
-      "Suporte a animações (frames sequenciais)",
-      "CLI com modo watch para hot-reload durante desenvolvimento",
-      "Integração com pipelines de CI/CD via GitHub Actions",
-    ],
-    stack: ["Python", "Pillow", "Click", "PyYAML"],
+    imageUrl: "",
+    youtubeId: "",
+    shortDesc: {
+      pt: "Simulador de redes sociais criado para auxiliar no aprendizado tecnológico da terceira idade.",
+      en: "Social media simulator created to help seniors learn technology."
+    },
+    fullDesc: {
+      pt: "Um aplicativo educacional desenvolvido em colaboração com psicólogos. O foco principal é criar um ambiente seguro e simulado de redes sociais para ensinar letramento digital a idosos, ajudando a superar barreiras tecnológicas através de um design acessível.",
+      en: "An educational application developed in collaboration with psychologists. The main focus is to create a safe, simulated social media environment to teach digital literacy to the elderly, helping to overcome technological barriers through accessible design."
+    },
+    highlights: {
+      pt: [
+        "Colaboração multidisciplinar com profissionais de psicologia",
+        "UX/UI construído estritamente para acessibilidade focada na terceira idade",
+        "Simulação interativa e segura de ambientes de redes sociais reais"
+      ],
+      en: [
+        "Multidisciplinary collaboration with psychology professionals",
+        "UX/UI built strictly for accessibility focused on seniors",
+        "Safe and interactive simulation of real social network environments"
+      ]
+    },
+    stack: ["Mobile", "UX/UI Design"],
     links: { github: "#" },
-    hue: "45",
-  },
-  {
-    id: "dungeon-tales",
-    title: "Dungeon Tales",
-    category: "Jogo",
-    status: "Arquivado",
-    year: "2022",
-    featured: false,
-    shortDesc:
-      "Aventura textual com escolhas ramificadas e sistema de inventário. Narrativa gerada dinamicamente por templates.",
-    fullDesc:
-      "Dungeon Tales é uma homenagem aos jogos de texto dos anos 80, com camadas modernas. Cada sessão tem uma narrativa ligeiramente diferente graças ao sistema de templates com variáveis contextuais. Projeto de aprendizado de Godot 4.",
-    highlights: [
-      "Mais de 200 cenas de narrativa únicas",
-      "Sistema de inventário com itens que afetam o desenrolar",
-      "Save/load com múltiplos slots",
-      "Soundtrack procedural que reage às escolhas do jogador",
-    ],
-    stack: ["Godot 4", "GDScript"],
-    links: { github: "#" },
-    hue: "320",
-  },
-  {
-    id: "quickdeploy",
-    title: "QuickDeploy",
-    category: "Ferramenta",
-    status: "Concluído",
-    year: "2022",
-    featured: false,
-    shortDesc:
-      "CLI para deploy simplificado em VPS com rollback automático, healthcheck e notificações via webhook.",
-    fullDesc:
-      "QuickDeploy abstrai o processo de deploy em servidores Linux. Com um único comando, faz pull do repositório, roda testes, reinicia serviços via systemd e verifica se o healthcheck passou. Em caso de falha, reverte para a versão anterior automaticamente.",
-    highlights: [
-      "Deploy com um único comando: `qdeploy push`",
-      "Rollback automático se o healthcheck falhar",
-      "Notificações de deploy via webhook (Slack, Discord)",
-      "Histórico de deploys com diff de versões",
-      "Suporte a múltiplos ambientes (staging, prod)",
-    ],
-    stack: ["Node.js", "TypeScript", "SSH2", "Zod"],
-    links: { github: "#" },
-    hue: "180",
-  },
-  {
-    id: "studyflow",
-    title: "StudyFlow",
-    category: "App",
-    status: "Em desenvolvimento",
-    year: "2022",
-    featured: false,
-    shortDesc:
-      "Timer Pomodoro avançado com bloqueio de distrações, estatísticas de foco e integração com Notion.",
-    fullDesc:
-      "StudyFlow vai além do timer simples. Integra com o calendário e o Notion para criar sessões de estudo estruturadas, mede o tempo real de foco (detecta inatividade), e gera relatórios semanais de produtividade.",
-    highlights: [
-      "Detecção de inatividade para pausar o timer automaticamente",
-      "Integração com Notion para registrar sessões em databases",
-      "Bloqueio de sites distradores configurável por sessão",
-      "Relatórios semanais de foco com análise de padrões",
-      "Modo de foco ambience com sons binaurais integrados",
-    ],
-    stack: ["Flutter", "Dart", "Hive", "Notion API"],
-    links: { github: "#" },
-    hue: "260",
-  },
+    hue: "250",
+  }
 ];
 
 export const featuredProjects = allProjects.filter((p) => p.featured);
